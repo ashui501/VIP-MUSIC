@@ -6,6 +6,7 @@
 # Please see < https://github.com/THE-VIP-BOY-OP/VIP-MUSIC/blob/master/LICENSE >
 #
 # All rights reserved.
+import os
 import re
 from os import getenv
 
@@ -105,6 +106,11 @@ GIT_TOKEN = getenv(
     "",
 )
 
+# Auto Gcast/Broadcast Handler, Write:- [On / Off] During Hosting.
+AUTO_GCAST = os.getenv("AUTO_GCAST", "on")
+
+# Auto Broadcast Message That You Want Use In Auto Broadcast In All Groups.
+AUTO_GCAST_MSG = getenv("AUTO_GCAST_MSG", "")
 
 # Only  Links formats are  accepted for this Var value.
 SUPPORT_CHANNEL = getenv(

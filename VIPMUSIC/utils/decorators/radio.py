@@ -9,7 +9,7 @@ from pyrogram.errors import (
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE
+from config import PRIVATE_BOT_MODE
 from config import SUPPORT_GROUP as SUPPORT_CHAT
 from strings import get_string
 from VIPMUSIC import YouTube, app
@@ -26,12 +26,11 @@ from VIPMUSIC.utils.database import (
     is_maintenance,
     is_served_private_chat,
 )
-from VIPMUSIC.utils.inline import botplaylist_markup
 
 links = {}
 
 
-def PlayWrapper(command):
+def RadioWrapper(command):
     async def wrapper(client, message):
         language = await get_lang(message.chat.id)
         userbot = await get_assistant(message.chat.id)
@@ -78,16 +77,7 @@ def PlayWrapper(command):
             else None
         )
         url = await YouTube.url(message)
-        if audio_telegram is None and video_telegram is None and url is None:
-            if len(message.command) < 2:
-                if "stream" in message.command:
-                    return await message.reply_text(_["str_1"])
-                buttons = botplaylist_markup(_)
-                return await message.reply_photo(
-                    photo=PLAYLIST_IMG_URL,
-                    caption=_["playlist_1"],
-                    reply_markup=InlineKeyboardMarkup(buttons),
-                )
+
         if message.command[0][0] == "c":
             chat_id = await get_cmode(message.chat.id)
             if chat_id is None:

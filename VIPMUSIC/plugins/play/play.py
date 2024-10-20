@@ -18,7 +18,7 @@ from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
-from config import BANNED_USERS, lyrical
+from config import BANNED_USERS, LOG_GROUP_ID, OWNER_ID, lyrical
 from VIPMUSIC import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from VIPMUSIC.core.call import VIP
 from VIPMUSIC.utils import seconds_to_min, time_to_seconds
@@ -297,7 +297,16 @@ async def play_commnd(
                 cap = _["play_13"].format(message.from_user.first_name)
                 img = url
             else:
-                return await mystic.edit_text(_["play_16"])
+                await mystic.delete()
+                await app.send_message(
+                    LOG_GROUP_ID,
+                    f"**ʜᴇʏ [ᴏᴡɴᴇʀ](tg://user?id={OWNER_ID[0]}) ᴍᴀʏ ʙᴇ ᴍʏ ᴄᴏᴏᴋɪᴇs ʜᴀs ʙᴇᴇɴ ᴅᴇᴀᴅ ᴘʟᴇᴀsᴇ ᴄʜᴇᴄᴋ ᴏɴᴇ ᴛɪᴍᴇ ʙʏ ᴘʟᴀʏ ᴀɴʏ sᴏɴɢs**",
+                )
+                return await app.send_message(
+                    OWNER_ID[0],
+                    f"**ʜᴇʏ [ᴏᴡɴᴇʀ](tg://user?id={OWNER_ID[0]}) ᴍᴀʏ ʙᴇ ᴍʏ ᴄᴏᴏᴋɪᴇs ʜᴀs ʙᴇᴇɴ ᴅᴇᴀᴅ ᴘʟᴇᴀsᴇ ᴄʜᴇᴄᴋ ᴏɴᴇ ᴛɪᴍᴇ ʙʏ ᴘʟᴀʏ ᴀɴʏ sᴏɴɢs**",
+                )
+
         elif await Resso.valid(url):
             try:
                 details, track_id = await Resso.track(url)
